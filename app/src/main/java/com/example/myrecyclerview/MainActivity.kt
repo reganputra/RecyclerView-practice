@@ -1,9 +1,12 @@
 package com.example.myrecyclerview
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +54,25 @@ class MainActivity : AppCompatActivity() {
     // Method untuk menandakan item mana yang dipilih
     private fun showSelectedHero(hero: Hero){
         Toast.makeText(this, "Kamu memilih " + hero.name, Toast.LENGTH_SHORT).show()
+    }
+
+    // Method menambahkan menu untuk mengubah bentuk List dan Grid
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // Method untuk mengubah tampilan List dan Grid
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_list -> {
+                rvHeroes.layoutManager = LinearLayoutManager(this)
+            }
+            R.id.action_grid -> {
+                rvHeroes.layoutManager = GridLayoutManager(this, 2)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
