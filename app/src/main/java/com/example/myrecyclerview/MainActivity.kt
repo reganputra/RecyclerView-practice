@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         rvHeroes = findViewById(R.id.rv_heroes)
+
+        // menjelaskan bahwa bila fixed size bernilai true
         rvHeroes.setHasFixedSize(true)
 
         list.addAll(getListHeroes())
@@ -39,21 +41,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList(){
-        rvHeroes.layoutManager = LinearLayoutManager(this)
+
+        rvHeroes.layoutManager = LinearLayoutManager(this) // menentukan bagaimana recyleview ditampilkan
         val listHeroAdapter = ListHeroAdapter(list)
         rvHeroes.adapter = listHeroAdapter
 
-        // menambahkan metode list
+        // Method click
         listHeroAdapter.setOnItemClickCallback(object : ListHeroAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: Hero) {
-                showSelectedHero(data)
-            }
+            override fun onItemClicked(data: Hero) { // jika ingin mengirimkan data detai ke activity lain
+                showSelectedHero(data) // bisa menggunakan intent parceable
+            }                           // val intentToDetail = Intent(this@MainActivity, DetailActivity::class.java)
         })
     }
 
     // Method untuk menandakan item mana yang dipilih
     private fun showSelectedHero(hero: Hero){
-        Toast.makeText(this, "Kamu memilih " + hero.name, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Kamu memilih " + hero.name, Toast.LENGTH_SHORT).show() // mendapatkan context pada Adapter
     }
 
     // Method menambahkan menu untuk mengubah bentuk List dan Grid
