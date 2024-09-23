@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
 
@@ -37,7 +38,12 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adap
      */
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (name, description, photo) = listHero[position]
-        holder.imgPhoto.setImageResource(photo)
+//        holder.imgPhoto.setImageResource(photo) // terjadi error karena gambar diambil melalui url
+        // Gunakan Glide
+        Glide.with(holder.itemView.context) // kode dasar untuk bisa menampilkan gambar dari URL ke dalam sebuah ImageView
+            .load(photo) // URL gambar
+            .into(holder.imgPhoto) // imageView mana yang akan diterapkan
+
         holder.tvName.text = name
         holder.tvDescription.text = description
 
